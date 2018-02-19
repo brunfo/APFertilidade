@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.List;
+import java.util.Scanner;
 
 import dao.APFDao;
 import dao.APFDaoImpl;
@@ -11,6 +12,7 @@ public class APFController {
 	private Parceiro model=null;
 	private APFView view;
 	private APFDao parceiroDao = new APFDaoImpl();
+	private Scanner scanner = new Scanner(System.in);
 
 	List<Parceiro> parceiros;
 	
@@ -120,6 +122,19 @@ public class APFController {
 
 	public APFView getView() {
 		return view;
+	}
+	
+	/**Inicializa menu de Comandos de Consola
+	 * 
+	 */
+	public void getMenu() {
+		   int input;
+		   do{
+			   getView().getMenu();
+			   input = scanner.nextInt();
+		   }while (!(input >0 && input <=5 || input== 9));
+		
+		
 	}
 
 	

@@ -27,7 +27,7 @@ public class Demo {
 
 			APFController controller = new APFController(model, view);
 			
-			controller.getView().getMenu();
+			controller.getMenu();
 //	      controller.printAllParceiros();
 	      
 //	      //fetch student from record

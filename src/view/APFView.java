@@ -3,24 +3,15 @@ package view;
 import java.util.Scanner;
 
 public class APFView {
-	Scanner scanner = new Scanner(System.in);
+
 	
 	   public void printParceiroDetails(int idParceiro,String nomeParceiro ){
 	      System.out.println("Parceiro: ");
 	      System.out.println("\tNome: " + nomeParceiro);
 	      System.out.println("\tID: " + idParceiro);
 	   }
-	   
-	   public void getMenu(){
-		   int input;
-		   do{
-			   monstraMenu();
-			   input = scanner.nextInt();
-		   }while (!(input >0 && input <=5 || input== 9));
-		   
-	   }
 
-	private void monstraMenu() {
+	public void getMenu() {
 		System.out.println("\t\tMenu");
 		System.out.println("Introduza uma das seguinte opções:");
 		System.out.println("1 - Lista todos");
