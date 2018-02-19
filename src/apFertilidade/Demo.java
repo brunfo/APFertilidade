@@ -1,9 +1,6 @@
 package apFertilidade;
-import java.awt.EventQueue;
-
 import controller.APFController;
 import model.Parceiro;
-import view.APFParceirosView;
 import view.APFView;
 
 public class Demo {
@@ -30,7 +27,8 @@ public class Demo {
 
 			APFController controller = new APFController(model, view);
 			
-	      controller.printAllParceiros();
+			controller.getView().getMenu();
+//	      controller.printAllParceiros();
 	      
 //	      //fetch student from record
 //	      model= controller.getParceiroById(1);

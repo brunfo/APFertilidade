@@ -2,13 +2,9 @@ package controller;
 
 import java.util.List;
 
-import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
-
 import dao.APFDao;
 import dao.APFDaoImpl;
 import model.Parceiro;
-import view.APFParceirosView;
 import view.APFView;
 
 public class APFController {
@@ -112,6 +108,7 @@ public class APFController {
 			view.printParceiroDetails(parceiro.getIdParceiro(), parceiro.getNome());
 		}
 	}
+	
 
 	/**
 	 * Closes database connection
@@ -119,6 +116,10 @@ public class APFController {
 	public void closeConnection() {
 		parceiroDao.closeAll();
 		
+	}
+
+	public APFView getView() {
+		return view;
 	}
 
 	
