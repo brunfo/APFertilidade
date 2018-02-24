@@ -1,4 +1,4 @@
-package model;
+package apFertilidade.model;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 

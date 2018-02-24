@@ -1,9 +1,9 @@
-package dao;
+package apFertilidade.dao;
 
 import java.sql.SQLException;
 import java.util.List;
 
-import model.Parceiro;
+import apFertilidade.model.Parceiro;
 
 public interface APFDao {
 	//DB setup

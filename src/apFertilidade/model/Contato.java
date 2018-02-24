@@ -1,4 +1,4 @@
-package model;
+package apFertilidade.model;
 
 public class Contato {
 	private int idContato;

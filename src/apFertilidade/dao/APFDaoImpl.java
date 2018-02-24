@@ -1,4 +1,4 @@
-package dao;
+package apFertilidade.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Parceiro;
+import apFertilidade.model.Parceiro;
 
 public class APFDaoImpl implements APFDao {
 

@@ -1,13 +1,13 @@
-package controller;
+package apFertilidade.controller;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
-import dao.APFDao;
-import dao.APFDaoImpl;
-import model.Parceiro;
-import view.APFView;
+import apFertilidade.dao.APFDao;
+import apFertilidade.dao.APFDaoImpl;
+import apFertilidade.model.Parceiro;
+import apFertilidade.view.APFView;
 
 public class APFController {
 	private Parceiro model = null;

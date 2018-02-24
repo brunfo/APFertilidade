@@ -1,4 +1,4 @@
-package dao;
+package apFertilidade.dao;
 
 /**
  * Define a configura��o usada para acesso � base de dados

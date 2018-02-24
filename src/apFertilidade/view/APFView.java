@@ -1,4 +1,4 @@
-package view;
+package apFertilidade.view;
 
 import java.util.Scanner;
 

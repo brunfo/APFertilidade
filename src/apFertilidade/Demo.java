@@ -1,7 +1,7 @@
 package apFertilidade;
-import controller.APFController;
-import model.Parceiro;
-import view.APFView;
+import apFertilidade.controller.APFController;
+import apFertilidade.model.Parceiro;
+import apFertilidade.view.APFView;
 
 public class Demo {
 	   public static void main(String[] args) {
