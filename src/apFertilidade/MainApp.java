@@ -2,6 +2,8 @@ package apFertilidade;
 
 import java.io.IOException;
 
+import apFertilidade.dao.APFDao;
+import apFertilidade.dao.APFDaoImpl;
 import apFertilidade.model.Parceiro;
 import apFertilidade.view.ParceirosOverviewController;
 import javafx.application.Application;
@@ -18,16 +20,14 @@ public class MainApp extends Application {
 	private Stage primaryStage;
 	private BorderPane rootLayout;
 	private ObservableList<Parceiro> parceirosData = FXCollections.observableArrayList();
+	//private APFDao parceiroDao = new APFDaoImpl();
 	
 	/**
 	 * Construtor
 	 */
 	public MainApp() {
-		//TODO ler dados de bd
-		parceirosData.add(new Parceiro("Bruno", "Farmácia"));
-		parceirosData.add(new Parceiro("Lucinana", "Famácia"));
-		parceirosData.add(new Parceiro("Fernando's SexShop", "SexShop"));
-		
+		//Busca os parceiros à base de dados
+		parceirosData = new APFDaoImpl().getAllParceiros();
 	}
 
 	@Override
@@ -109,4 +109,5 @@ public class MainApp extends Application {
 
 
 }
+
 

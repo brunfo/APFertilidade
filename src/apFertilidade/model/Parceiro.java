@@ -22,7 +22,7 @@ public class Parceiro {
 	 * Contrutor nulo
 	 */
 	public Parceiro() {
-		this(null, null);
+		this(null, null,null, null, null, null, null, null);
 	}
 	
 	/**
@@ -31,16 +31,19 @@ public class Parceiro {
 	 * @param idParceiro
 	 * @param nome
 	 */
-	public Parceiro(String nome, String tipoParceiro) {
+	public Parceiro( String tipoParceiro, String nome, String morada,
+			String codigoPostal, String localidade, String freguesia,
+			String concelho, String distrito) {
+		
+		this.idParceiro = new SimpleIntegerProperty(getNewIdParceiro());
 		this.tipoParceiro = new SimpleStringProperty(tipoParceiro);
 		this.nome = new SimpleStringProperty(nome);
-		this.idParceiro = new SimpleIntegerProperty(getNewIdParceiro());
-		this.morada = new SimpleStringProperty("morada"); 
-		this.codigoPostal = new SimpleStringProperty("codigoPostal");
-		this.localidade = new SimpleStringProperty("localidade");
-		this.freguesia = new SimpleStringProperty("freguesia");
-		this.concelho = new SimpleStringProperty("concelho");
-		this.distrito = new SimpleStringProperty("distrito");
+		this.morada = new SimpleStringProperty(morada); 
+		this.codigoPostal = new SimpleStringProperty(codigoPostal);
+		this.localidade = new SimpleStringProperty(localidade);
+		this.freguesia = new SimpleStringProperty(freguesia);
+		this.concelho = new SimpleStringProperty(concelho);
+		this.distrito = new SimpleStringProperty(distrito);
 	}
 
 	private int getNewIdParceiro() {
@@ -51,14 +54,14 @@ public class Parceiro {
 	/**
 	 * @return the tipoParceiro
 	 */
-	public String gettipoParceiro() {
+	public String getTipoParceiro() {
 		return tipoParceiro.get();
 	}
 
 	/**
 	 * @param tipoParceiro the tipoParceiro to set
 	 */
-	public void settipoParceiro(String tipoParceiro) {
+	public void setTipoParceiro(String tipoParceiro) {
 		this.tipoParceiro.set(tipoParceiro);
 	}
 	
