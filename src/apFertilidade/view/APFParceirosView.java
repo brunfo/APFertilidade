@@ -1,13 +1,9 @@
 package apFertilidade.view;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.JButton;
 import javax.swing.JTextField;
-
-import apFertilidade.controller.APFController;
 
 import javax.swing.JRadioButton;
 import javax.swing.JPanel;

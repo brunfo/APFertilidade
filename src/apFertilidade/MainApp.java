@@ -2,7 +2,11 @@ package apFertilidade;
 
 import java.io.IOException;
 
+import apFertilidade.model.Parceiro;
+import apFertilidade.view.ParceirosOverviewController;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -13,7 +17,18 @@ public class MainApp extends Application {
 	
 	private Stage primaryStage;
 	private BorderPane rootLayout;
+	private ObservableList<Parceiro> parceirosData = FXCollections.observableArrayList();
 	
+	/**
+	 * Construtor
+	 */
+	public MainApp() {
+		//TODO ler dados de bd
+		parceirosData.add(new Parceiro("Bruno", "Farmácia"));
+		parceirosData.add(new Parceiro("Lucinana", "Famácia"));
+		parceirosData.add(new Parceiro("Fernando's SexShop", "SexShop"));
+		
+	}
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -24,7 +39,6 @@ public class MainApp extends Application {
 		initRootLayout();
 		//carrega o ParceirosOverview
 		showParceirosOverview();
-		
 		
 	}
     /**
@@ -46,7 +60,8 @@ public class MainApp extends Application {
 		try {
 			//Carrega o root layout do arquivo fmxl.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("view/RootLayout.fxml"));
+			loader.setLocation(MainApp.class
+					.getResource("view/RootLayout.fxml"));
 			rootLayout = (BorderPane) loader.load();
 			
 			//Mostra a scene contendo o root layout.
@@ -73,10 +88,25 @@ public class MainApp extends Application {
 			
 			//Define parceirosOverview dentro do root layout.
 			rootLayout.setCenter(parceirosOverview);
+			
+			//Dá ao controllador acesso à mainApp.
+			ParceirosOverviewController controller = 
+					loader.getController();
+			controller.setMainApp(this);
+			
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Retorna os dados como uma observable list de Parceiros
+	 * @return 
+	 */
+	public ObservableList<Parceiro> getParceirosData(){
+		return parceirosData;
+	}
 
 
 }
+

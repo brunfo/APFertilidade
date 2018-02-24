@@ -1,112 +1,248 @@
 package apFertilidade.model;
-import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
 
-public class Parceiro extends TipoParceiro {
-	private int idParceiro;
-	private String nome;
-	private String morada;
-	private String codigoPostal;
-	private String localidade;
-	private String freguesia;
-	private String concelho;
-	private String distrito;
-	private TipoParceiro tipoParceiro;
-	private Contato[] contatos;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
-	public Parceiro(int idParceiro, String nome) {
-		this.idParceiro = idParceiro;
-		this.nome = nome;
+public class Parceiro {
+	private StringProperty tipoParceiro;
+	private final IntegerProperty idParceiro;
+	private StringProperty nome;
+	private StringProperty morada;
+	private StringProperty codigoPostal;
+	private StringProperty localidade;
+	private StringProperty freguesia;
+	private StringProperty concelho;
+	private StringProperty distrito;
+	//private Contato[] contatos;
+
+	
+	/**
+	 * Contrutor nulo
+	 */
+	public Parceiro() {
+		this(null, null);
 	}
 	
+	/**
+	 * Construtor padrão
+	 * 
+	 * @param idParceiro
+	 * @param nome
+	 */
+	public Parceiro(String nome, String tipoParceiro) {
+		this.tipoParceiro = new SimpleStringProperty(tipoParceiro);
+		this.nome = new SimpleStringProperty(nome);
+		this.idParceiro = new SimpleIntegerProperty(getNewIdParceiro());
+		this.morada = new SimpleStringProperty("morada"); 
+		this.codigoPostal = new SimpleStringProperty("codigoPostal");
+		this.localidade = new SimpleStringProperty("localidade");
+		this.freguesia = new SimpleStringProperty("freguesia");
+		this.concelho = new SimpleStringProperty("concelho");
+		this.distrito = new SimpleStringProperty("distrito");
+	}
+
+	private int getNewIdParceiro() {
+		// TODO Verificar na base dados qual é o ultimo id
+		return 0;
+	}
+
+	/**
+	 * @return the tipoParceiro
+	 */
+	public String gettipoParceiro() {
+		return tipoParceiro.get();
+	}
+
+	/**
+	 * @param tipoParceiro the tipoParceiro to set
+	 */
+	public void settipoParceiro(String tipoParceiro) {
+		this.tipoParceiro.set(tipoParceiro);
+	}
+	
+	/**
+	 * 
+	 * @return StringProperty - tipoParceiro
+	 */
+    public StringProperty tipoParceiroProperty() {
+        return tipoParceiro;
+    }
+    
 	/**
 	 * @return the idParceiro
 	 */
 	public int getIdParceiro() {
-		return idParceiro;
+		return idParceiro.get();
 	}
 
 	/**
 	 * @param idParceiro the idParceiro to set
 	 */
 	public void setIdParceiro(int idParceiro) {
-		this.idParceiro = idParceiro;
+		this.idParceiro.set(idParceiro);
+	}
+	
+	/**
+	 * 
+	 * @return IntegerProperty - idParceiro
+	 */
+    public IntegerProperty idParceiroProperty() {
+        return idParceiro;
+    }
+
+	/**
+	 * @return the nome
+	 */
+	public String getNome() {
+		return nome.get();
 	}
 
 	/**
 	 * @param nome the nome to set
 	 */
 	public void setNome(String nome) {
-		this.nome = nome;
+		this.nome.set(nome);
 	}
 
 	/**
-	 * @return the name
+	 * 
+	 * @return StringProperty - nome
 	 */
-	public String getNome() {
-		return nome;
+    public StringProperty nomeProperty() {
+        return nome;
+    }
+    
+	/**
+	 * @return the morada
+	 */
+	public String getMorada() {
+		return morada.get();
 	}
 
 	/**
 	 * @param morada the morada to set
 	 */
 	public void setMorada(String morada) {
-		this.morada = morada;
+		this.morada.set(morada); 
+	}
+	
+	/**
+	 * 
+	 * @return StringProperty - morada
+	 */
+    public StringProperty moradaProperty() {
+        return morada;
+    }
+
+	/**
+	 * @return the codigoPostal
+	 */
+	public String getCodigoPostal() {
+		return codigoPostal.get();
 	}
 
 	/**
 	 * @param codigoPostal the codigoPostal to set
 	 */
 	public void setCodigoPostal(String codigoPostal) {
-		this.codigoPostal = codigoPostal;
+		this.codigoPostal.set(codigoPostal);
+	}
+
+	/**
+	 * 
+	 * @return StringProperty - codigoPostal
+	 */
+    public StringProperty codigoPostalProperty() {
+        return codigoPostal;
+    }
+    
+	/**
+	 * @return the localidade
+	 */
+	public String getLocalidade() {
+		return localidade.get();
 	}
 
 	/**
 	 * @param localidade the localidade to set
 	 */
 	public void setLocalidade(String localidade) {
-		this.localidade = localidade;
+		this.localidade.set(localidade);
+	}
+	
+	/**
+	 * 
+	 * @return StringProperty - localidade
+	 */
+    public StringProperty localidadeProperty() {
+        return localidade;
+    }
+
+	/**
+	 * @return the freguesia
+	 */
+	public String getFreguesia() {
+		return freguesia.get();
 	}
 
 	/**
 	 * @param freguesia the freguesia to set
 	 */
 	public void setFreguesia(String freguesia) {
-		this.freguesia = freguesia;
+		this.freguesia.set(freguesia);
 	}
+	
+	/**
+	 * 
+	 * @return StringProperty - freguesia
+	 */
+    public StringProperty freguesiaProperty() {
+        return freguesia;
+    }
+	
+	/**
+	 * @return the concelho
+	 */
+	public String getConcelho() {
+		return concelho.get();
+	}
+	
+	/**
+	 * 
+	 * @return StringProperty - concelho
+	 */
+    public StringProperty concelhoProperty() {
+        return concelho;
+    }
 
 	/**
 	 * @param concelho the concelho to set
 	 */
 	public void setConcelho(String concelho) {
-		this.concelho = concelho;
+		this.concelho.set(concelho);
+	}
+
+	/**
+	 * @return the distrito
+	 */
+	public String getDistrito() {
+		return distrito.get();
 	}
 
 	/**
 	 * @param distrito the distrito to set
 	 */
 	public void setDistrito(String distrito) {
-		this.distrito = distrito;
+		this.distrito.set(distrito);
 	}
-
+	
 	/**
-	 * @param tipoParceiro the tipoParceiro to set
+	 * 
+	 * @return StringProperty - distrito
 	 */
-	public void setTipoParceiro(TipoParceiro tipoParceiro) {
-		this.tipoParceiro = tipoParceiro;
-	}
-
-	/**
-	 * @param contatos the contatos to set
-	 */
-	public void setContatos(Contato[] contatos) {
-		this.contatos = contatos;
-	}
-
-	public Parceiro getParceiro() {
-		return this;
-		
-	}
-
-
+    public StringProperty distritoProperty() {
+        return distrito;
+    }
 }

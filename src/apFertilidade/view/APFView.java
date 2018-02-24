@@ -1,7 +1,5 @@
 package apFertilidade.view;
 
-import java.util.Scanner;
-
 public class APFView {
 
 	
