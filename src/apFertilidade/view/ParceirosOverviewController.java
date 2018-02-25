@@ -1,8 +1,14 @@
 package apFertilidade.view;
 
+import java.util.Optional;
+
 import apFertilidade.MainApp;
+import apFertilidade.dao.APFDaoImpl;
 import apFertilidade.model.Parceiro;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -107,6 +113,75 @@ public class ParceirosOverviewController {
 			freguesiaLabel.setText("");
 			concelhoLabel.setText("");
 			distritoLabel.setText("");
+		}
+	}
+	
+	/**
+	 * Chamado quando o utilizador clica no botão apagar
+	 */
+	@FXML
+	private void handleApagarParceiro() {
+		int selectedIndex = parceiroTable.getSelectionModel().getSelectedIndex();
+		if (selectedIndex >=0) {
+			//Caixa de alert pedindo confirmação para apagar
+			Alert alertConfirm = new Alert(AlertType.CONFIRMATION);
+			alertConfirm.setTitle("Apagar Parceiro");
+			alertConfirm.setHeaderText("Tem a certeza que deseja apagar parceiro?");
+			Optional<ButtonType> result =alertConfirm.showAndWait();
+			if( result.get() == ButtonType.OK) {
+				//Apaga o parceiro da tabela
+				parceiroTable.getItems().remove(selectedIndex);
+				//TODO integração com base dados apagar
+			}
+		}
+		else {
+			//Nada seleccionado
+			alertNadaSelecionado();
+		}
+		
+	}
+
+	/**
+	 * Abre uma janela popup com mensagem de erro.
+	 */
+	private void alertNadaSelecionado() {
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("Nenhuma seleção");
+		alert.setHeaderText("Nenhum Parceiro selecionado");
+		alert.setContentText("Por favor, selecione um parceiro.");
+		alert.showAndWait();
+	}
+	
+	/**
+	 * Chamado quando o utilizador clica no botão novo. Abre uma janela
+	 * para editar os detalhes da nova pessoa
+	 */
+	@FXML
+	private void handleNovoParceiro() {
+		Parceiro tempParceiro = new Parceiro();
+		boolean okClicked = mainApp.showParceiroEditDialog(tempParceiro);
+		if (okClicked) {
+			mainApp.getParceirosData().add(tempParceiro);
+		}
+	}
+	
+	/**
+	 * Chamado quando o utilizador clica no botão edit. Abre janela para
+	 * editar detalhes do parceiro selecionado.
+	 */
+	@FXML
+	private void handleEditParceiro() {
+		Parceiro selectedParceiro = parceiroTable.getSelectionModel().
+				getSelectedItem();
+		if ( selectedParceiro!=null) {
+			boolean okClicked = mainApp.showParceiroEditDialog(selectedParceiro);
+			if (okClicked) {
+				showParceiroDetails(selectedParceiro);
+			}
+		}
+		else {
+			//Nada selecionado
+			alertNadaSelecionado();
 		}
 	}
 

@@ -65,8 +65,15 @@
                       <TableColumn maxWidth="1.7976931348623157E308" prefWidth="309.0" text="Contacto" />
                     </columns>
                   </TableView>
-                  <ListView layoutX="5.0" layoutY="440.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="155.0" prefWidth="385.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="440.0" />
+                  <ListView layoutX="5.0" layoutY="440.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="118.0" prefWidth="385.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="440.0" />
                   <Label layoutX="5.0" layoutY="423.0" text="Benefícios" />
+                  <HBox alignment="CENTER" layoutX="57.0" layoutY="557.0" spacing="10.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
+                     <children>
+                        <Button layoutX="57.0" layoutY="557.0" mnemonicParsing="false" onAction="#handleNovoParceiro" prefWidth="100.0" text="Novo" />
+                        <Button layoutX="128.0" layoutY="557.0" mnemonicParsing="false" onAction="#handleEditParceiro" prefWidth="100.0" text="Editar..." />
+                        <Button layoutX="198.0" layoutY="557.0" mnemonicParsing="false" onAction="#handleApagarParceiro" prefWidth="100.0" text="Apagar" />
+                     </children>
+                  </HBox>
                </children></AnchorPane>
         </items>
       </SplitPane>
