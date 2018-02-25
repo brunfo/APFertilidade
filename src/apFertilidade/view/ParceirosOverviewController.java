@@ -3,7 +3,6 @@ package apFertilidade.view;
 import java.util.Optional;
 
 import apFertilidade.MainApp;
-import apFertilidade.dao.APFDaoImpl;
 import apFertilidade.model.Parceiro;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;

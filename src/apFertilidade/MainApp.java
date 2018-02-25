@@ -2,7 +2,6 @@ package apFertilidade;
 
 import java.io.IOException;
 
-import apFertilidade.dao.APFDao;
 import apFertilidade.dao.APFDaoImpl;
 import apFertilidade.model.Parceiro;
 import apFertilidade.view.ParceiroEditDialogController;

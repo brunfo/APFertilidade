@@ -1,4 +1,4 @@
-package apFertilidade.view;
+package apFertilidade.deprecated;
 
 public class APFView {
 

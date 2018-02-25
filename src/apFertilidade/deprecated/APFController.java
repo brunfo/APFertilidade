@@ -1,4 +1,4 @@
-package apFertilidade.controller;
+package apFertilidade.deprecated;
 
 import java.io.IOException;
 import java.util.List;
@@ -7,7 +7,6 @@ import java.util.Scanner;
 import apFertilidade.dao.APFDao;
 import apFertilidade.dao.APFDaoImpl;
 import apFertilidade.model.Parceiro;
-import apFertilidade.view.APFView;
 
 public class APFController {
 	private Parceiro model = null;
@@ -165,7 +164,7 @@ public class APFController {
 			System.out.println("Prima Enter para continuar...");
 			System.in.read();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 	}
