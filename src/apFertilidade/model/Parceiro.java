@@ -4,6 +4,8 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class Parceiro {
 	private StringProperty tipoParceiro;
@@ -15,14 +17,14 @@ public class Parceiro {
 	private StringProperty freguesia;
 	private StringProperty concelho;
 	private StringProperty distrito;
-	//private Contato[] contatos;
+	private ObservableList<Contato> contatos=FXCollections.observableArrayList();;
 
 	
 	/**
 	 * Contrutor nulo
 	 */
 	public Parceiro() {
-		this(null, null,null, null, null, null, null, null);
+		this(null, null,null, null, null, null, null, null, null);
 	}
 	
 	/**
@@ -33,7 +35,7 @@ public class Parceiro {
 	 */
 	public Parceiro( String tipoParceiro, String nome, String morada,
 			String codigoPostal, String localidade, String freguesia,
-			String concelho, String distrito) {
+			String concelho, String distrito, ObservableList<Contato> contatos) {
 		
 		this.idParceiro = new SimpleIntegerProperty(getNewIdParceiro());
 		this.tipoParceiro = new SimpleStringProperty(tipoParceiro);
@@ -44,6 +46,7 @@ public class Parceiro {
 		this.freguesia = new SimpleStringProperty(freguesia);
 		this.concelho = new SimpleStringProperty(concelho);
 		this.distrito = new SimpleStringProperty(distrito);
+		this.contatos= contatos;
 	}
 
 	private int getNewIdParceiro() {
@@ -248,4 +251,13 @@ public class Parceiro {
     public StringProperty distritoProperty() {
         return distrito;
     }
+    
+	/**
+	 * Retorna os dados como uma observable list de Contatos
+	 * 
+	 * @return
+	 */
+	public ObservableList<Contato> getContatos() {
+		return contatos;
+	}
 }

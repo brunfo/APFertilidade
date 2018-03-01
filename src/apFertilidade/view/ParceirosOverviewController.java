@@ -3,6 +3,7 @@ package apFertilidade.view;
 import java.util.Optional;
 
 import apFertilidade.MainApp;
+import apFertilidade.model.Contato;
 import apFertilidade.model.Parceiro;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -38,6 +39,12 @@ public class ParceirosOverviewController {
 	private Label concelhoLabel;
 	@FXML
 	private Label distritoLabel;
+	@FXML
+	private TableView<Contato> contatosTable;
+	@FXML
+	private TableColumn<Contato, String> tipoContatoColuna;
+	@FXML
+	private TableColumn<Contato, String> contatoColuna;
 	
 	
 	//Referência para aplicação principal
@@ -101,6 +108,14 @@ public class ParceirosOverviewController {
 			freguesiaLabel.setText(parceiro.getFreguesia());
 			concelhoLabel.setText(parceiro.getConcelho());
 			distritoLabel.setText(parceiro.getDistrito());
+			
+			//Adiciona os dados da observable list na tabela
+			contatosTable.setItems(parceiro.getContatos());
+			//Inicializa tabela de pessoa com duas colunas
+			tipoContatoColuna.setCellValueFactory(cellData -> 
+					cellData.getValue().tipoContatoProperty());
+			contatoColuna.setCellValueFactory(cellData ->
+					cellData.getValue().contatoProperty());
 		}
 		else {
 			//Parceiro é null, remove todo o texto
@@ -112,6 +127,7 @@ public class ParceirosOverviewController {
 			freguesiaLabel.setText("");
 			concelhoLabel.setText("");
 			distritoLabel.setText("");
+			contatosTable.setItems(null);
 		}
 	}
 	

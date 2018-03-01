@@ -59,11 +59,14 @@
                      </children>
                   </GridPane>
                   <Label layoutX="5.0" layoutY="291.0" text="Contactos" AnchorPane.topAnchor="290.0" />
-                  <TableView layoutX="5.0" layoutY="308.0" maxWidth="1.7976931348623157E308" prefHeight="100.0" prefWidth="385.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="310.0">
+                  <TableView fx:id="contatosTable" layoutX="5.0" layoutY="308.0" maxWidth="1.7976931348623157E308" prefHeight="100.0" prefWidth="385.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="310.0">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="Tipo" />
-                      <TableColumn maxWidth="1.7976931348623157E308" prefWidth="309.0" text="Contacto" />
+                      <TableColumn fx:id="tipoContatoColuna" prefWidth="93.0" text="Tipo" />
+                      <TableColumn fx:id="contatoColuna" maxWidth="1.7976931348623157E308" prefWidth="290.0" text="Contacto" />
                     </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
                   </TableView>
                   <ListView layoutX="5.0" layoutY="440.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="118.0" prefWidth="385.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="440.0" />
                   <Label layoutX="5.0" layoutY="423.0" text="Benefícios" />

@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import apFertilidade.model.Contato;
 import apFertilidade.model.Parceiro;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -135,6 +137,15 @@ public class APFDaoImpl implements APFDao {
 			// step 6: process the results.
 			rs = stmt.executeQuery(gdta);
 			while (rs.next()) {
+				ResultSet rsContatos;
+				ObservableList<Contato> contatos = FXCollections.observableArrayList();
+				String getContatos="SELECT * FROM contatos WHERE  fk_idParceiro =" + rs.getInt("idParceiro");
+				rsContatos= con.createStatement().executeQuery(getContatos);
+				while (rsContatos.next()) {
+					contatos.add(new Contato(rsContatos.getInt("idContato"),
+										rsContatos.getString("contato"),
+										rsContatos.getString("tipoContato")));
+				}
 				parceiro.add(new Parceiro(rs.getString("tipoParceiro"),
 										rs.getString("nome"),
 										rs.getString("morada"),
@@ -142,7 +153,8 @@ public class APFDaoImpl implements APFDao {
 										rs.getString("localidade"),
 										rs.getString("freguesia"),
 										rs.getString("concelho"),
-										rs.getString("distrito")));
+										rs.getString("distrito"),
+										contatos));
 			}
 		} catch (SQLException ex) {
 			System.err.println("getAllParceiro: " + ex.getMessage());
@@ -209,7 +221,7 @@ public class APFDaoImpl implements APFDao {
 						rs.getString("localidade"),
 						rs.getString("freguesia"),
 						rs.getString("concelho"),
-						rs.getString("distrito"));
+						rs.getString("distrito"), null);
 			}
 		} catch (SQLException ex) {
 			System.err.println("GetParceiroByID: " + ex.getMessage());
