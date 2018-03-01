@@ -17,14 +17,15 @@ public class Parceiro {
 	private StringProperty freguesia;
 	private StringProperty concelho;
 	private StringProperty distrito;
-	private ObservableList<Contato> contatos=FXCollections.observableArrayList();;
+	private ObservableList<Contato> contatos=FXCollections.observableArrayList();
+	private ObservableList<String> beneficios=FXCollections.observableArrayList();
 
 	
 	/**
 	 * Contrutor nulo
 	 */
 	public Parceiro() {
-		this(null, null,null, null, null, null, null, null, null);
+		this(null, null,null, null, null, null, null, null, null,null);
 	}
 	
 	/**
@@ -32,10 +33,12 @@ public class Parceiro {
 	 * 
 	 * @param idParceiro
 	 * @param nome
+	 * @param beneficios 
 	 */
 	public Parceiro( String tipoParceiro, String nome, String morada,
 			String codigoPostal, String localidade, String freguesia,
-			String concelho, String distrito, ObservableList<Contato> contatos) {
+			String concelho, String distrito, ObservableList<Contato> contatos,
+			ObservableList<String> beneficios) {
 		
 		this.idParceiro = new SimpleIntegerProperty(getNewIdParceiro());
 		this.tipoParceiro = new SimpleStringProperty(tipoParceiro);
@@ -47,6 +50,7 @@ public class Parceiro {
 		this.concelho = new SimpleStringProperty(concelho);
 		this.distrito = new SimpleStringProperty(distrito);
 		this.contatos= contatos;
+		this.beneficios= beneficios;
 	}
 
 	private int getNewIdParceiro() {
@@ -259,5 +263,13 @@ public class Parceiro {
 	 */
 	public ObservableList<Contato> getContatos() {
 		return contatos;
+	}
+	/**
+	 * Retorna os dados como uma observable list de Beneficios
+	 * 
+	 * @return
+	 */
+	public ObservableList<String> getBeneficios() {
+		return beneficios;
 	}
 }

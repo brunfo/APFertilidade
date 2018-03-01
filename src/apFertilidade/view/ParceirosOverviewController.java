@@ -10,6 +10,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
@@ -45,6 +46,8 @@ public class ParceirosOverviewController {
 	private TableColumn<Contato, String> tipoContatoColuna;
 	@FXML
 	private TableColumn<Contato, String> contatoColuna;
+	@FXML 
+	private ListView<String> listaBeneficios= new ListView<String>();
 	
 	
 	//Referência para aplicação principal
@@ -116,6 +119,8 @@ public class ParceirosOverviewController {
 					cellData.getValue().tipoContatoProperty());
 			contatoColuna.setCellValueFactory(cellData ->
 					cellData.getValue().contatoProperty());
+			
+			listaBeneficios.setItems(parceiro.getBeneficios());
 		}
 		else {
 			//Parceiro é null, remove todo o texto
@@ -128,6 +133,7 @@ public class ParceirosOverviewController {
 			concelhoLabel.setText("");
 			distritoLabel.setText("");
 			contatosTable.setItems(null);
+			listaBeneficios.setItems(null);
 		}
 	}
 	

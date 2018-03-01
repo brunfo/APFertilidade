@@ -6,10 +6,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import com.sun.org.apache.regexp.internal.recompile;
+
+import apFertilidade.model.Beneficios;
 import apFertilidade.model.Contato;
 import apFertilidade.model.Parceiro;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.ListView;
 
 public class APFDaoImpl implements APFDao {
 
@@ -52,14 +56,11 @@ public class APFDaoImpl implements APFDao {
 	@Override
 	public void makeConnection() {
 		try {
-			con = DriverManager.getConnection(cfg.getURL(), 
-					cfg.getUSR(), cfg.getPWD());
-			System.out.println("Connected successfully to: " 
-					+ cfg.getURL());
+			con = DriverManager.getConnection(cfg.getURL(), cfg.getUSR(), cfg.getPWD());
+			System.out.println("Connected successfully to: " + cfg.getURL());
 		} catch (SQLException ex) {
 			ex.printStackTrace();
-			System.err.println("database connection: " 
-					+ ex.getMessage());
+			System.err.println("database connection: " + ex.getMessage());
 
 		}
 
@@ -71,8 +72,7 @@ public class APFDaoImpl implements APFDao {
 
 			stmt = con.createStatement();
 		} catch (SQLException ex) {
-			System.err.println("database statement: " 
-					+ ex.getMessage());
+			System.err.println("database statement: " + ex.getMessage());
 
 		}
 	}
@@ -82,7 +82,7 @@ public class APFDaoImpl implements APFDao {
 		try {
 			stmt.close();
 			con.close();
-			
+
 		} catch (SQLException ex) {
 			System.err.println("closeAll: " + ex.getMessage());
 		}
@@ -92,8 +92,7 @@ public class APFDaoImpl implements APFDao {
 	@Override
 	public void createTable() {
 
-		String createString = "create table parceiros " + 
-				"(idParceiro INT, " + "nome VARCHAR(45), "
+		String createString = "create table parceiros " + "(idParceiro INT, " + "nome VARCHAR(45), "
 				+ "CONSTRAINT pk_students PRIMARY KEY (idParceiro))";
 		try {
 
@@ -134,32 +133,63 @@ public class APFDaoImpl implements APFDao {
 		ObservableList<Parceiro> parceiro = FXCollections.observableArrayList();
 		try {
 			String gdta = "SELECT * FROM parceiros";
-			// step 6: process the results.
+			// busca os parceiros.
 			rs = stmt.executeQuery(gdta);
 			while (rs.next()) {
-				ResultSet rsContatos;
-				ObservableList<Contato> contatos = FXCollections.observableArrayList();
-				String getContatos="SELECT * FROM contatos WHERE  fk_idParceiro =" + rs.getInt("idParceiro");
-				rsContatos= con.createStatement().executeQuery(getContatos);
-				while (rsContatos.next()) {
-					contatos.add(new Contato(rsContatos.getInt("idContato"),
-										rsContatos.getString("contato"),
-										rsContatos.getString("tipoContato")));
-				}
-				parceiro.add(new Parceiro(rs.getString("tipoParceiro"),
-										rs.getString("nome"),
-										rs.getString("morada"),
-										rs.getString("codigoPostal"),
-										rs.getString("localidade"),
-										rs.getString("freguesia"),
-										rs.getString("concelho"),
-										rs.getString("distrito"),
-										contatos));
+				//busca contatos do parceiro
+				ObservableList<Contato> contatos = getContatos(rs.getInt("idParceiro"));
+
+				//busca beneficios do parceiro
+				ObservableList<String> beneficios = getBeneficios(rs.getInt("idParceiro"));
+
+				parceiro.add(new Parceiro(rs.getString("tipoParceiro"), 
+						rs.getString("nome"), 
+						rs.getString("morada"),
+						rs.getString("codigoPostal"), 
+						rs.getString("localidade"), 
+						rs.getString("freguesia"),
+						rs.getString("concelho"), 
+						rs.getString("distrito"), 
+						contatos,
+						beneficios));
 			}
 		} catch (SQLException ex) {
 			System.err.println("getAllParceiro: " + ex.getMessage());
 		}
-		return  parceiro;
+		return parceiro;
+	}
+
+	/**
+	 * @return
+	 * @throws SQLException
+	 */
+	private ObservableList<String> getBeneficios(int idParceiro) throws SQLException {
+		ObservableList<String> beneficios = FXCollections.observableArrayList();
+		ResultSet rsBeneficios;
+		String getBeneficios = "SELECT * FROM beneficios WHERE  fk_idParceiro =" + idParceiro;
+		rsBeneficios = con.createStatement().executeQuery(getBeneficios);
+		while (rsBeneficios.next()) {
+			beneficios.add(new String(rsBeneficios.getString("beneficios")));
+		}
+		return beneficios;
+	}
+
+	/**
+	 * 
+	 * @throws SQLException
+	 * @retrun	
+	 */
+	private ObservableList<Contato> getContatos(int idParceiro) throws SQLException {
+		ObservableList<Contato> contatos = FXCollections.observableArrayList();
+		ResultSet rsContatos;
+		String getContatos = "SELECT * FROM contatos WHERE  fk_idParceiro =" + idParceiro;
+		rsContatos = con.createStatement().executeQuery(getContatos);
+		while (rsContatos.next()) {
+			contatos.add(new Contato(rsContatos.getInt("idContato"), 
+					rsContatos.getString("contato"),
+					rsContatos.getString("tipoContato")));
+		}
+		return contatos;
 	}
 
 	/**
@@ -172,12 +202,9 @@ public class APFDaoImpl implements APFDao {
 	public void addParceiro(Parceiro parceiro) {
 
 		try {
-			stmt.executeUpdate(
-					"INSERT INTO parceiros " + "VALUES (" 
-							+ parceiro.getIdParceiro() + "', '" 
-							+ parceiro.getNome() + "')");
-			System.out.println("Parceiro: " + parceiro.getNome() 
-				+ ", added to database");
+			stmt.executeUpdate("INSERT INTO parceiros " + "VALUES (" + parceiro.getIdParceiro() + "', '"
+					+ parceiro.getNome() + "')");
+			System.out.println("Parceiro: " + parceiro.getNome() + ", added to database");
 		} catch (SQLException ex) {
 			System.err.println("AddParceiro: " + ex.getMessage());
 		}
@@ -193,10 +220,8 @@ public class APFDaoImpl implements APFDao {
 	@Override
 	public void deleteParceiro(Parceiro parceiro) {
 		try {
-			stmt.executeUpdate("DELETE FROM parceiros WHERE `idParceiro`=" 
-					+ parceiro.getIdParceiro());
-			System.out.println("Parceiro: ID " + parceiro.getIdParceiro() 
-					+ ", deleted from database");
+			stmt.executeUpdate("DELETE FROM parceiros WHERE `idParceiro`=" + parceiro.getIdParceiro());
+			System.out.println("Parceiro: ID " + parceiro.getIdParceiro() + ", deleted from database");
 		} catch (SQLException ex) {
 			System.err.println("DeleteParceiro: " + ex.getMessage());
 		}
@@ -210,18 +235,19 @@ public class APFDaoImpl implements APFDao {
 	@Override
 	public Parceiro getParceiroByID(int idParceiro) {
 		try {
-			String gdta = "SELECT * FROM parceiros where idParceiro=" 
-						+  idParceiro;
+			String gdta = "SELECT * FROM parceiros where idParceiro=" + idParceiro;
 			rs = stmt.executeQuery(gdta);
 			while (rs.next()) {
-				return new Parceiro(rs.getString("tipoParceiro"),
-						rs.getString("nome"),
+				return new Parceiro(rs.getString("tipoParceiro"), 
+						rs.getString("nome"), 
 						rs.getString("morada"),
-						rs.getString("codigoPostal"),
-						rs.getString("localidade"),
+						rs.getString("codigoPostal"), 
+						rs.getString("localidade"), 
 						rs.getString("freguesia"),
-						rs.getString("concelho"),
-						rs.getString("distrito"), null);
+						rs.getString("concelho"), 
+						rs.getString("distrito"), 
+						null, 
+						null);
 			}
 		} catch (SQLException ex) {
 			System.err.println("GetParceiroByID: " + ex.getMessage());
@@ -232,11 +258,9 @@ public class APFDaoImpl implements APFDao {
 	@Override
 	public void updateParceiro(Parceiro parceiro) {
 		try {
-			stmt.executeUpdate("UPDATE patceiros SET nome= '" 
-					+ parceiro.getNome() + "' WHERE idParceiro=" 
+			stmt.executeUpdate("UPDATE patceiros SET nome= '" + parceiro.getNome() + "' WHERE idParceiro="
 					+ parceiro.getIdParceiro());
-			System.out.println("Parceiro: ID " + parceiro.getIdParceiro() 
-					+ ", updated in database" + " new nome: "	
+			System.out.println("Parceiro: ID " + parceiro.getIdParceiro() + ", updated in database" + " new nome: "
 					+ parceiro.getNome());
 		} catch (SQLException ex) {
 			System.err.println("UpdateParceiro: " + ex.getMessage());
